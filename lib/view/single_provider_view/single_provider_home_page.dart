@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/provider/note_modifier.dart';
+import 'package:notes_flutter/provider/single_provider/note_modifier.dart';
 import 'package:notes_flutter/utils/custom_text_widget.dart';
-import 'package:notes_flutter/view/all_lists.dart';
-import 'package:notes_flutter/view/deleted_list.dart';
+import 'package:notes_flutter/view/single_provider_view/all_lists.dart';
+import 'package:notes_flutter/view/single_provider_view/deleted_list.dart';
 
-class HomePage extends ConsumerWidget {
-  const HomePage({Key? key}) : super(key: key);
+class SingleProviderHomePage extends ConsumerWidget {
+  const SingleProviderHomePage({Key? key}) : super(key: key);
 
   toggleTab(WidgetRef ref, bool value) {
-    ref.read(isAllSelectedProvider.notifier).update((state) => value);
+    ref.read(isAllSelectedSingleProvider.notifier).update((state) => value);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAllSelected = ref.watch(isAllSelectedProvider);
-    ref.watch(noteListProvider);
+    final isAllSelected = ref.watch(isAllSelectedSingleProvider);
+    ref.watch(noteListSingleProvider);
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -70,11 +70,16 @@ class HomePage extends ConsumerWidget {
                 height: 20,
               ),
               isAllSelected == false
-                  ? ref.watch(noteListProvider.notifier).deletedNotesLength < 1
+                  ? ref
+                              .watch(noteListSingleProvider.notifier)
+                              .deletedNotesLength <
+                          1
                       ? const SizedBox()
                       : ElevatedButton(
                           onPressed: () {
-                            ref.read(noteListProvider.notifier).clearTrash();
+                            ref
+                                .read(noteListSingleProvider.notifier)
+                                .clearTrash();
                           },
                           child: CustomTextWidget(
                             text: "Delete All",

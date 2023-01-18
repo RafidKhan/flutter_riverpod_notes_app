@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/model/data_model.dart';
 
-final noteListProvider =
+final noteListSingleProvider =
 StateNotifierProvider<NoteNotifier, List<NoteModel>>((ref) {
   return NoteNotifier([
     for (int i = 0; i < 30; i++)
@@ -13,7 +13,7 @@ StateNotifierProvider<NoteNotifier, List<NoteModel>>((ref) {
   ]);
 });
 
-final isAllSelectedProvider = StateProvider<bool>((ref) => true);
+final isAllSelectedSingleProvider = StateProvider<bool>((ref) => true);
 
 
 

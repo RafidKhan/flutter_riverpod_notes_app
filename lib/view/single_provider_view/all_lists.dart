@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/provider/note_modifier.dart';
-import 'package:notes_flutter/provider/note_modifier.dart';
+import 'package:notes_flutter/provider/single_provider/note_modifier.dart';
 import 'package:notes_flutter/utils/custom_text_widget.dart';
-import 'package:notes_flutter/view/edit_note.dart';
+import 'package:notes_flutter/view/single_provider_view/edit_note.dart';
 
 class AllLists extends ConsumerWidget {
   const AllLists({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notesData = ref.watch(noteListProvider);
+    final notesData = ref.watch(noteListSingleProvider);
     return Expanded(
       child: ListView.builder(
           physics: const BouncingScrollPhysics(),
@@ -39,7 +38,7 @@ class AllLists extends ConsumerWidget {
                   ),
                   onPressed: () {
                     ref
-                        .read(noteListProvider.notifier)
+                        .read(noteListSingleProvider.notifier)
                         .moveToTrash(getNoteModel: element);
                   },
                 ),

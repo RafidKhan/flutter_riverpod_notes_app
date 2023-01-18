@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/model/data_model.dart';
-import 'package:notes_flutter/provider/note_modifier.dart';
+import 'package:notes_flutter/provider/single_provider/note_modifier.dart';
 import 'package:notes_flutter/utils/custom_text_widget.dart';
 
 class EditNote extends ConsumerWidget {
@@ -40,7 +40,7 @@ class EditNote extends ConsumerWidget {
                       noteModel.edited = true;
 
                       ref
-                          .read(noteListProvider.notifier)
+                          .read(noteListSingleProvider.notifier)
                           .updateNote(getNoteModel: noteModel);
                       Navigator.pop(context);
                     },

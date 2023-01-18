@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/provider/note_modifier.dart';
+import 'package:notes_flutter/provider/single_provider/note_modifier.dart';
 import 'package:notes_flutter/utils/custom_text_widget.dart';
 
 class DeletedLists extends ConsumerWidget {
@@ -8,8 +8,7 @@ class DeletedLists extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notesData = ref.watch(noteListProvider);
-
+    final notesData = ref.watch(noteListSingleProvider);
     return Expanded(
       child: ListView.builder(
           physics: const BouncingScrollPhysics(),
@@ -40,7 +39,7 @@ class DeletedLists extends ConsumerWidget {
                       icon: const Icon(Icons.undo),
                       onPressed: () {
                         ref
-                            .read(noteListProvider.notifier)
+                            .read(noteListSingleProvider.notifier)
                             .removeFromTrash(getNoteModel: element);
                       },
                     ),
@@ -51,7 +50,7 @@ class DeletedLists extends ConsumerWidget {
                       ),
                       onPressed: () {
                         ref
-                            .read(noteListProvider.notifier)
+                            .read(noteListSingleProvider.notifier)
                             .deleteNote(getNoteModel: element);
                       },
                     ),
