@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class NoteModel {
-  int id;
-  String title;
-  String subtitle;
-  bool edited;
-  bool exists;
+  int? id;
+  String? title;
+  String? subtitle;
+  bool? edited;
+  bool? exists;
 
   NoteModel({
-    required this.id,
-    required this.title,
-    required this.subtitle,
-    required this.edited,
+    this.id,
+    this.title = "",
+    this.subtitle = "",
+    this.edited = false,
     this.exists = true,
   });
 

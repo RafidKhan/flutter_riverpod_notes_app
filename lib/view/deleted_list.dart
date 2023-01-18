@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/provider/home_provider.dart';
+import 'package:notes_flutter/provider/note_modifier.dart';
 import 'package:notes_flutter/utils/custom_text_widget.dart';
 
 class DeletedLists extends ConsumerWidget {
@@ -24,12 +24,12 @@ class DeletedLists extends ConsumerWidget {
                     ? Colors.grey[200]
                     : Colors.grey[300],
                 title: CustomTextWidget(
-                  text: element.title,
+                  text: element.title ?? "Title",
                   maxLines: 1,
                   fontSize: 20,
                 ),
                 subtitle: CustomTextWidget(
-                  text: element.subtitle,
+                  text: element.subtitle ?? "Subtitle",
                   maxLines: 1,
                   fontSize: 17,
                 ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/provider/home_provider.dart';
+import 'package:notes_flutter/provider/note_modifier.dart';
 import 'package:notes_flutter/utils/custom_text_widget.dart';
 import 'package:notes_flutter/view/all_lists.dart';
 import 'package:notes_flutter/view/deleted_list.dart';
