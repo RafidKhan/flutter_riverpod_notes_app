@@ -31,18 +31,19 @@ class NoteModel {
         'exists': exists,
       };
 
-  NoteModel copyWith(
-      {required int id,
-      required String title,
-      required String subtitle,
-      required bool edited,
-      required bool exists}) {
+  NoteModel copyWith({
+    int? id,
+    String? title,
+    String? subtitle,
+    bool? edited,
+    bool? exists,
+  }) {
     var noteModel = NoteModel(
-      id: id,
-      title: title,
-      subtitle: subtitle,
-      edited: edited,
-      exists: exists,
+      id: id ?? this.id,
+      title: title ?? this.title,
+      subtitle: subtitle ?? this.subtitle,
+      edited: edited ?? this.edited,
+      exists: exists ?? this.exists,
     );
     return noteModel;
   }

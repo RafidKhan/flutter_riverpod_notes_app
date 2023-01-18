@@ -9,11 +9,10 @@ class NoteNotifier extends StateNotifier<List<NoteModel>> {
       for (final noteModel in state)
         if (noteModel.id == getNoteModel.id)
           noteModel.copyWith(
-              id: getNoteModel.id,
-              title: getNoteModel.title,
-              subtitle: getNoteModel.subtitle,
-              edited: getNoteModel.edited,
-              exists: getNoteModel.exists)
+            title: getNoteModel.title,
+            subtitle: getNoteModel.subtitle,
+            edited: getNoteModel.edited,
+          )
         else
           noteModel,
     ];
@@ -38,12 +37,7 @@ class NoteNotifier extends StateNotifier<List<NoteModel>> {
     state = [
       for (final noteModel in state)
         if (noteModel.id == getNoteModel.id)
-          noteModel.copyWith(
-              id: getNoteModel.id,
-              title: getNoteModel.title,
-              subtitle: getNoteModel.subtitle,
-              edited: getNoteModel.edited,
-              exists: false)
+          noteModel.copyWith(exists: false)
         else
           noteModel,
     ];
@@ -55,23 +49,29 @@ class NoteNotifier extends StateNotifier<List<NoteModel>> {
     state = [
       for (final noteModel in state)
         if (noteModel.id == getNoteModel.id)
-          noteModel.copyWith(
-              id: getNoteModel.id,
-              title: getNoteModel.title,
-              subtitle: getNoteModel.subtitle,
-              edited: getNoteModel.edited,
-              exists: true)
+          noteModel.copyWith(exists: true)
         else
           noteModel,
     ];
   }
 
   void clearTrash() {
-    for (int i = 0; i < state.length; i++) {
-      if (state[i].exists == false) {
-        state.removeAt(i);
-      }
-    }
-    state = [for (final noteModel in state) noteModel];
+    state = [
+      for (final noteModel in state)
+        if (noteModel.exists == true)
+          noteModel.copyWith(
+              id: noteModel.id,
+              title: noteModel.title,
+              subtitle: noteModel.subtitle,
+              edited: noteModel.edited,
+              exists: true)
+    ];
+  }
+
+  int get deletedNotesLength {
+    int result = 0;
+    List<NoteModel> deletedNotesList = state.where((i) => !i.exists).toList();
+    result = deletedNotesList.length;
+    return result;
   }
 }

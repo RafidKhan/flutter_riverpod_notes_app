@@ -9,6 +9,7 @@ class DeletedLists extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notesData = ref.watch(noteListProvider);
+
     return Expanded(
       child: ListView.builder(
           physics: const BouncingScrollPhysics(),

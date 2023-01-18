@@ -15,6 +15,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isAllSelected = ref.watch(isAllSelectedProvider);
+    ref.watch(noteListProvider);
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
@@ -69,15 +70,17 @@ class HomePage extends ConsumerWidget {
                 height: 20,
               ),
               isAllSelected == false
-                  ? ElevatedButton(
-                      onPressed: () {
-                        ref.read(noteListProvider.notifier).clearTrash();
-
-                      },
-                      child: CustomTextWidget(
-                        text: "Delete All",
-                        color: Colors.white,
-                      ))
+                  ? ref.watch(noteListProvider.notifier).deletedNotesLength < 1
+                      ? const SizedBox()
+                      : ElevatedButton(
+                          onPressed: () {
+                            ref.read(noteListProvider.notifier).clearTrash();
+                          },
+                          child: CustomTextWidget(
+                            text: "Delete All",
+                            color: Colors.white,
+                          ),
+                        )
                   : const SizedBox(),
               isAllSelected == true ? const AllLists() : const DeletedLists(),
             ],
