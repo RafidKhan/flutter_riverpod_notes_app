@@ -16,11 +16,15 @@ class CustomTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      maxLines: maxLines,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontSize: fontSize ?? 15, color: color ?? Colors.black),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: Text(
+        text,
+        maxLines: maxLines,
+        overflow: TextOverflow.ellipsis,
+        style:
+            TextStyle(fontSize: fontSize ?? 15, color: color ?? Colors.black),
+      ),
     );
   }
 }
