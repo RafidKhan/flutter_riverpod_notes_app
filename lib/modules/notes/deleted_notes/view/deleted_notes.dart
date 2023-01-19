@@ -12,26 +12,34 @@ class DeletedNotes extends ConsumerWidget {
     notesData.sort((a, b) => b.dateTime!.compareTo(a.dateTime!));
 
     return Expanded(
-      child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: notesData.length,
-          itemBuilder: (context, index) {
-            var element = notesData[index];
+      child: ListView.separated(
+        physics: const BouncingScrollPhysics(),
+        itemCount: notesData.length,
+        itemBuilder: (context, index) {
+          var element = notesData[index];
 
-            return DeletedNoteTile(
-              noteModel: element,
-              onRestore: () {
-                ref
-                    .read(deletedNoteProvider.notifier)
-                    .restoreNote(getNoteModel: element);
-              },
-              onPermanentDelete: () {
-                ref
-                    .read(deletedNoteProvider.notifier)
-                    .removeFromTrash(getNoteModel: element);
-              },
-            );
-          }),
+          return DeletedNoteTile(
+            noteModel: element,
+            onRestore: () {
+              ref
+                  .read(deletedNoteProvider.notifier)
+                  .restoreNote(getNoteModel: element);
+            },
+            onPermanentDelete: () {
+              ref
+                  .read(deletedNoteProvider.notifier)
+                  .removeFromTrash(getNoteModel: element);
+            },
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Container(
+            height: 0.5,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.black,
+          );
+        },
+      ),
     );
   }
 }

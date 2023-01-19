@@ -13,32 +13,40 @@ class UserList extends ConsumerWidget {
 
     return listUsers.when(
       data: (data) {
-        return ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: listUsers.value?.length,
-            itemBuilder: (context, index) {
-              var element = listUsers.value![index];
+        return ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          itemCount: listUsers.value!.length,
+          itemBuilder: (context, index) {
+            var element = listUsers.value![index];
 
-              return ListTile(
-                title: CustomTextWidget(
-                  text: element.name ?? "",
-                  fontSize: 20,
-                ),
-                subtitle: CustomTextWidget(
-                  text: element.email ?? "",
-                ),
-                trailing: IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => UserDetail(
-                              userModel: element,
-                            )));
-                  },
-                ),
-                tileColor: index.isEven ? Colors.grey[200] : Colors.white,
-              );
-            });
+            return ListTile(
+              title: CustomTextWidget(
+                text: element.name ?? "",
+                fontSize: 20,
+              ),
+              subtitle: CustomTextWidget(
+                text: element.email ?? "",
+              ),
+              trailing: IconButton(
+                icon: const Icon(Icons.arrow_forward_ios),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => UserDetail(
+                            userModel: element,
+                          )));
+                },
+              ),
+              tileColor: index.isEven ? Colors.grey[200] : Colors.white,
+            );
+          },
+          separatorBuilder: (context, index) {
+            return Container(
+              height: 0.5,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.black,
+            );
+          },
+        );
       },
       error: (error, stackTrace) {
         return Center(

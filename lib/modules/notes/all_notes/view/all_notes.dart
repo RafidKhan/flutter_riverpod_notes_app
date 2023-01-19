@@ -14,25 +14,33 @@ class AllNotes extends ConsumerWidget {
     notesData.sort((a, b) => b.dateTime!.compareTo(a.dateTime!));
 
     return Expanded(
-      child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: notesData.length,
-          itemBuilder: (context, index) {
-            var element = notesData[index];
-            return NoteTile(
-              noteModel: element,
-              onTap: () {
-                ref.read(editNoteProvider.notifier).state = element;
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const EditNote()));
-              },
-              onDelete: () {
-                ref
-                    .read(allNoteProvider.notifier)
-                    .moveToTrash(getNoteModel: element);
-              },
-            );
-          }),
+      child: ListView.separated(
+        physics: const BouncingScrollPhysics(),
+        itemCount: notesData.length,
+        itemBuilder: (context, index) {
+          var element = notesData[index];
+          return NoteTile(
+            noteModel: element,
+            onTap: () {
+              ref.read(editNoteProvider.notifier).state = element;
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const EditNote()));
+            },
+            onDelete: () {
+              ref
+                  .read(allNoteProvider.notifier)
+                  .moveToTrash(getNoteModel: element);
+            },
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Container(
+            height: 0.5,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.black,
+          );
+        },
+      ),
     );
   }
 }

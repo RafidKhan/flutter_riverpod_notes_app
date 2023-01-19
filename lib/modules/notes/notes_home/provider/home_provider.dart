@@ -8,7 +8,7 @@ final isAllSelectedProvider = StateProvider<bool>((ref) => true);
 final futureNotesListsProvider = FutureProvider<List<NoteModel>>((ref) async {
   List<NoteModel> notesList = <NoteModel>[];
 
-  await Future.delayed(const Duration(seconds: 10));
+  await Future.delayed(const Duration(seconds: 5));
 
   for (int i = 0; i < 10; i++) {
     notesList.add(NoteModel(
