@@ -5,7 +5,7 @@ String getDateTimeFormattedValue({DateTime? dateTime}) {
   String result = "";
   try {
     if (dateTime != null) {
-      result = DateFormat('dd/MM/yyyy, kk:mm a').format(dateTime);
+      result = DateFormat('dd/MM/yy').format(dateTime);
     } else {
       result = "";
     }

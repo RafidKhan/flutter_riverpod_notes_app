@@ -25,25 +25,27 @@ class NoteTile extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomTextWidget(
-                  text: noteModel.title ?? "Title",
-                  maxLines: 1,
-                  fontSize: 20,
-                ),
-                CustomTextWidget(
-                  text: noteModel.subtitle ?? "Subtitle",
-                  maxLines: 1,
-                  fontSize: 17,
-                ),
-                CustomTextWidget(
-                  text: getDateTimeFormattedValue(dateTime: noteModel.dateTime),
-                  maxLines: 1,
-                  fontSize: 17,
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomTextWidget(
+                    text: noteModel.title ?? "Title",
+                    maxLines: 1,
+                    fontSize: 20,
+                  ),
+                  CustomTextWidget(
+                    text: noteModel.subtitle ?? "Subtitle",
+                    maxLines: 1,
+                    fontSize: 17,
+                  ),
+                  CustomTextWidget(
+                    text:
+                        getDateTimeFormattedValue(dateTime: noteModel.dateTime),
+                    fontSize: 17,
+                  ),
+                ],
+              ),
             ),
             IconButton(
               icon: Icon(

@@ -5,6 +5,7 @@ import 'package:notes_flutter/provider/notes_provider/deleted_note_provider.dart
 import 'package:notes_flutter/provider/notes_provider/home_provider.dart';
 import 'package:notes_flutter/utils/custom_text_widget.dart';
 import 'package:notes_flutter/view/home_page/all_notes/all_notes.dart';
+import 'package:notes_flutter/view/home_page/create_note.dart';
 import 'package:notes_flutter/view/home_page/deleted_notes/deleted_notes.dart';
 
 class HomePage extends ConsumerWidget {
@@ -25,11 +26,10 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ref.refresh(allNoteProvider);
-          ref.refresh(deletedNoteProvider);
-          ref.refresh(futureNotesListsProvider);
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => CreateNote()));
         },
-        child: const Icon(Icons.replay),
+        child: const Icon(Icons.add),
       ),
       body: SafeArea(
         child: SizedBox(
@@ -90,9 +90,7 @@ class HomePage extends ConsumerWidget {
                       ? const SizedBox()
                       : ElevatedButton(
                           onPressed: () {
-                            ref
-                                .read(deletedNoteProvider.notifier)
-                                .clearTrash();
+                            ref.read(deletedNoteProvider.notifier).clearTrash();
                           },
                           child: CustomTextWidget(
                             text: "Delete All",

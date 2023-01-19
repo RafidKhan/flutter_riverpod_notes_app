@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/model/data_model.dart';
 import 'package:notes_flutter/provider/notes_provider/all_note_modifier_provider.dart';
+import 'package:notes_flutter/utils/commonMethods.dart';
 
 final deletedNoteProvider =
     StateNotifierProvider<DeletedNoteNotifier, List<NoteModel>>((ref) {
