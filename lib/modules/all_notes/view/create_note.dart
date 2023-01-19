@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/provider/notes_provider/all_note_modifier_provider.dart';
-import 'package:notes_flutter/utils/custom_text_widget.dart';
+import 'package:notes_flutter/modules/all_notes/provider/all_note_modifier_provider.dart';
+import 'package:notes_flutter/common_components/custom_text_widget.dart';
 
 class CreateNote extends ConsumerWidget {
   const CreateNote({Key? key}) : super(key: key);

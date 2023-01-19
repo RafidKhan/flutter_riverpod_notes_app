@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notes_flutter/model/data_model.dart';
+import 'package:notes_flutter/model/notes_model.dart';
 import 'package:notes_flutter/utils/commonMethods.dart';
-import 'package:notes_flutter/utils/custom_text_widget.dart';
+import 'package:notes_flutter/common_components/custom_text_widget.dart';
 
 class DeletedNoteTile extends StatelessWidget {
   NoteModel noteModel;

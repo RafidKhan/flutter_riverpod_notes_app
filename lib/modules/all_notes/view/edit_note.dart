@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/model/data_model.dart';
-import 'package:notes_flutter/provider/notes_provider/all_note_modifier_provider.dart';
-import 'package:notes_flutter/utils/custom_text_widget.dart';
+import 'package:notes_flutter/model/notes_model.dart';
+import 'package:notes_flutter/modules/all_notes/provider/all_note_modifier_provider.dart';
+import 'package:notes_flutter/common_components/custom_text_widget.dart';
 
 class EditNote extends ConsumerWidget {
   NoteModel noteModel;

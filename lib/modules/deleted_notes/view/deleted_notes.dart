@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_flutter/provider/notes_provider/deleted_note_provider.dart';
+import 'package:notes_flutter/modules/deleted_notes/provider/deleted_note_provider.dart';
 
-import 'package:notes_flutter/utils/deleted_note_tile.dart';
+import 'package:notes_flutter/common_components/deleted_note_tile.dart';
 
 class DeletedNotes extends ConsumerWidget {
   const DeletedNotes({Key? key}) : super(key: key);

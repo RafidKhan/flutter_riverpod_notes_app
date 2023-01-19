@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_flutter/provider/notes_provider/all_note_modifier_provider.dart';
-import 'package:notes_flutter/utils/note_tile.dart';
-import 'package:notes_flutter/view/home_page/edit_note.dart';
+import 'package:notes_flutter/common_components/note_tile.dart';
+import 'package:notes_flutter/modules/all_notes/provider/all_note_modifier_provider.dart';
+import 'package:notes_flutter/modules/all_notes/view/edit_note.dart';
 
 class AllNotes extends ConsumerWidget {
   const AllNotes({Key? key}) : super(key: key);

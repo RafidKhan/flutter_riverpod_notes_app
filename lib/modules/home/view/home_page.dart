@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/provider/notes_provider/all_note_modifier_provider.dart';
-import 'package:notes_flutter/provider/notes_provider/deleted_note_provider.dart';
-import 'package:notes_flutter/provider/notes_provider/home_provider.dart';
-import 'package:notes_flutter/utils/custom_text_widget.dart';
-import 'package:notes_flutter/view/home_page/all_notes/all_notes.dart';
-import 'package:notes_flutter/view/home_page/create_note.dart';
-import 'package:notes_flutter/view/home_page/deleted_notes/deleted_notes.dart';
+import 'package:notes_flutter/modules/all_notes/provider/all_note_modifier_provider.dart';
+import 'package:notes_flutter/modules/deleted_notes/provider/deleted_note_provider.dart';
+import 'package:notes_flutter/modules/home/provider/home_provider.dart';
+import 'package:notes_flutter/common_components/custom_text_widget.dart';
+import 'package:notes_flutter/modules/all_notes/view/all_notes.dart';
+import 'package:notes_flutter/modules/all_notes/view/create_note.dart';
+import 'package:notes_flutter/modules/deleted_notes/view/deleted_notes.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,13 +24,15 @@ class HomePage extends ConsumerWidget {
     final deletedNotes = ref.watch(deletedNoteProvider);
     final futureNotes = ref.watch(futureNotesListsProvider);
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => CreateNote()));
-        },
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: isAllSelected == true
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CreateNote()));
+              },
+              child: const Icon(Icons.add),
+            )
+          : const SizedBox(),
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
