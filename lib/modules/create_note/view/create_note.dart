@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/modules/all_notes/provider/all_note_modifier_provider.dart';
 import 'package:notes_flutter/common_components/custom_text_widget.dart';
+import 'package:notes_flutter/modules/create_note/provider/create_note_provider.dart';
 
 class CreateNote extends ConsumerWidget {
   const CreateNote({Key? key}) : super(key: key);
@@ -36,14 +37,12 @@ class CreateNote extends ConsumerWidget {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      if (noteModel.title != null) {
-                        if (noteModel.title!.isNotEmpty) {
-                          noteModel.dateTime = DateTime.now();
-                          ref
-                              .read(allNoteProvider.notifier)
-                              .addNote(getNoteModel: noteModel);
-                          Navigator.pop(context);
-                        }
+                      if (noteModel.title.isNotEmpty) {
+                        noteModel.dateTime = DateTime.now();
+                        ref
+                            .read(allNoteProvider.notifier)
+                            .addNote(getNoteModel: noteModel);
+                        Navigator.pop(context);
                       }
                     },
                     child: CustomTextWidget(

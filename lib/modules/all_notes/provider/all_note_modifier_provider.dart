@@ -1,10 +1,9 @@
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/model/notes_model.dart';
 import 'package:notes_flutter/modules/deleted_notes/provider/deleted_note_provider.dart';
 import 'package:notes_flutter/utils/commonMethods.dart';
 
-final createNoteProvider = StateProvider((ref) => NoteModel());
+
 
 final allNoteProvider =
     StateNotifierProvider<AllNoteNotifier, List<NoteModel>>((ref) {

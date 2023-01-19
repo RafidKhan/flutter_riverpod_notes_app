@@ -1,37 +1,37 @@
 import 'package:flutter/cupertino.dart';
+import 'package:notes_flutter/utils/commonMethods.dart';
 
 @immutable
 class NoteModel {
   String? id;
-  String? title;
+  String title;
   String? subtitle;
   bool? edited;
-  bool? exists;
   DateTime? dateTime;
 
   NoteModel({
     this.id,
-    this.title = "",
+    required this.title,
     this.subtitle = "",
     this.edited = false,
-    this.exists = true,
     this.dateTime,
-  });
+  }) {
+    id = getUniqueUid;
+    dateTime = DateTime.now();
+  }
 
   NoteModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         title = json['title'] ?? "",
         subtitle = json['subtitle'] ?? "",
         edited = json['edited'] ?? true,
-        dateTime = json['dateTime'],
-        exists = json['exists'] ?? true;
+        dateTime = json['dateTime'];
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
         'subtitle': subtitle,
         'edited': edited,
-        'exists': exists,
         'dateTime': dateTime,
       };
 
@@ -40,7 +40,6 @@ class NoteModel {
     String? title,
     String? subtitle,
     bool? edited,
-    bool? exists,
     DateTime? dateTime,
   }) {
     var noteModel = NoteModel(
@@ -48,7 +47,6 @@ class NoteModel {
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
       edited: edited ?? this.edited,
-      exists: exists ?? this.exists,
       dateTime: dateTime ?? this.dateTime,
     );
     return noteModel;

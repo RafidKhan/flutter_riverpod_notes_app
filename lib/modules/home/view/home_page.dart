@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/modules/all_notes/provider/all_note_modifier_provider.dart';
 import 'package:notes_flutter/modules/deleted_notes/provider/deleted_note_provider.dart';
 import 'package:notes_flutter/modules/home/provider/home_provider.dart';
 import 'package:notes_flutter/common_components/custom_text_widget.dart';
 import 'package:notes_flutter/modules/all_notes/view/all_notes.dart';
-import 'package:notes_flutter/modules/all_notes/view/create_note.dart';
+import 'package:notes_flutter/modules/create_note/view/create_note.dart';
 import 'package:notes_flutter/modules/deleted_notes/view/deleted_notes.dart';
 
 class HomePage extends ConsumerWidget {

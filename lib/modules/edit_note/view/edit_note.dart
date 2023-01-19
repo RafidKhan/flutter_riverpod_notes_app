@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/model/notes_model.dart';
-import 'package:notes_flutter/modules/all_notes/provider/all_note_modifier_provider.dart';
 import 'package:notes_flutter/common_components/custom_text_widget.dart';
+import 'package:notes_flutter/modules/edit_note/provider/edit_note_modifier_provider.dart';
 
 class EditNote extends ConsumerWidget {
-  NoteModel noteModel;
-
-  EditNote({Key? key, required this.noteModel})
-      : super(key: key);
+  const EditNote({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final noteModel = ref.watch(editNoteProvider);
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -42,7 +40,7 @@ class EditNote extends ConsumerWidget {
                       noteModel.dateTime = DateTime.now();
 
                       ref
-                          .read(allNoteProvider.notifier)
+                          .read(editNoteProvider.notifier)
                           .updateNote(getNoteModel: noteModel);
                       Navigator.pop(context);
                     },

@@ -2,7 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_flutter/common_components/note_tile.dart';
 import 'package:notes_flutter/modules/all_notes/provider/all_note_modifier_provider.dart';
-import 'package:notes_flutter/modules/all_notes/view/edit_note.dart';
+import 'package:notes_flutter/modules/edit_note/provider/edit_note_modifier_provider.dart';
+import 'package:notes_flutter/modules/edit_note/view/edit_note.dart';
 
 class AllNotes extends ConsumerWidget {
   const AllNotes({Key? key}) : super(key: key);
@@ -21,10 +22,9 @@ class AllNotes extends ConsumerWidget {
             return NoteTile(
               noteModel: element,
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => EditNote(
-                          noteModel: element,
-                        )));
+                ref.read(editNoteProvider.notifier).state = element;
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const EditNote()));
               },
               onDelete: () {
                 ref
