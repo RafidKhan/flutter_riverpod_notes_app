@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:notes_flutter/utils/common_methods.dart';
 
 class UserRepository {
-  Dio dio = Dio();
+  final Dio dio;
+
+  UserRepository(this.dio);
 
   Future fetchUsers() async {
     try {
