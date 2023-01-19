@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 String getDateTimeFormattedValue({DateTime? dateTime}) {
   String result = "";
@@ -11,3 +12,7 @@ String getDateTimeFormattedValue({DateTime? dateTime}) {
   } catch (e) {}
   return result;
 }
+
+var uuid = const Uuid();
+
+String get getUniqueUid => uuid.v4();

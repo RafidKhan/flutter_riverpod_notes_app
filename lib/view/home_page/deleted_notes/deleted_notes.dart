@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_flutter/provider/multiple_provider/deleted_note_modifier_multiple_provider.dart';
-import 'package:notes_flutter/utils/custom_text_widget.dart';
+import 'package:notes_flutter/provider/notes_provider/deleted_note_provider.dart';
+
 import 'package:notes_flutter/utils/deleted_note_tile.dart';
 
 class DeletedNotes extends ConsumerWidget {
@@ -9,7 +9,7 @@ class DeletedNotes extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notesData = ref.watch(deletedNoteMultipleProvider);
+    final notesData = ref.watch(deletedNoteProvider);
     notesData.sort((a, b) => b.dateTime!.compareTo(a.dateTime!));
 
     return Expanded(
@@ -23,12 +23,12 @@ class DeletedNotes extends ConsumerWidget {
               noteModel: element,
               onRestore: () {
                 ref
-                    .read(deletedNoteMultipleProvider.notifier)
+                    .read(deletedNoteProvider.notifier)
                     .restoreNote(getNoteModel: element);
               },
               onPermanentDelete: () {
                 ref
-                    .read(deletedNoteMultipleProvider.notifier)
+                    .read(deletedNoteProvider.notifier)
                     .removeFromTrash(getNoteModel: element);
               },
             );

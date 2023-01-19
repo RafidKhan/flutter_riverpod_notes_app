@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/model/data_model.dart';
-import 'package:notes_flutter/provider/multiple_provider/deleted_note_modifier_multiple_provider.dart';
+import 'package:notes_flutter/provider/notes_provider/deleted_note_provider.dart';
 
-final allNoteMultipleProvider =
+final allNoteProvider =
     StateNotifierProvider<AllNoteNotifier, List<NoteModel>>((ref) {
   return AllNoteNotifier(ref);
 });
@@ -21,7 +21,7 @@ class AllNoteNotifier extends StateNotifier<List<NoteModel>> {
     ];
 
     ref
-        .read(deletedNoteMultipleProvider.notifier)
+        .read(deletedNoteProvider.notifier)
         .addNote(getNoteModel: getNoteModel);
   }
 

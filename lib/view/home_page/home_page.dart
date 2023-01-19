@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notes_flutter/provider/single_provider/note_modifier.dart';
+import 'package:notes_flutter/provider/notes_provider/all_note_modifier_provider.dart';
+import 'package:notes_flutter/provider/notes_provider/deleted_note_provider.dart';
+import 'package:notes_flutter/provider/notes_provider/home_provider.dart';
 import 'package:notes_flutter/utils/custom_text_widget.dart';
-import 'package:notes_flutter/view/single_provider_view/all_lists.dart';
-import 'package:notes_flutter/view/single_provider_view/deleted_list.dart';
+import 'package:notes_flutter/view/home_page/all_notes/all_notes.dart';
+import 'package:notes_flutter/view/home_page/deleted_notes/deleted_notes.dart';
 
-class SingleProviderHomePage extends ConsumerWidget {
-  const SingleProviderHomePage({Key? key}) : super(key: key);
+class HomePage extends ConsumerWidget {
+  const HomePage({Key? key}) : super(key: key);
 
-  toggleTab(WidgetRef ref, bool value) {
-    ref.read(isAllSelectedSingleProvider.notifier).update((state) => value);
+  toggleTab(
+    WidgetRef ref,
+    bool value,
+  ) {
+    ref.read(isAllSelectedProvider.notifier).state = value;
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAllSelected = ref.watch(isAllSelectedSingleProvider);
-    ref.watch(noteListSingleProvider);
+    final isAllSelected = ref.watch(isAllSelectedProvider);
+    final deletedNotes = ref.watch(deletedNoteProvider);
+    final futureNotes = ref.watch(futureNotesListsProvider);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ref.refresh(allNoteProvider);
+          ref.refresh(deletedNoteProvider);
+          ref.refresh(futureNotesListsProvider);
+        },
+        child: const Icon(Icons.replay),
+      ),
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -32,6 +46,8 @@ class SingleProviderHomePage extends ConsumerWidget {
                   InkWell(
                     onTap: () {
                       toggleTab(ref, true);
+
+                      //ref.read(isAllSelectedMultipleProvider.notifier).state = value;
                     },
                     child: Container(
                       width: 100,
@@ -70,15 +86,12 @@ class SingleProviderHomePage extends ConsumerWidget {
                 height: 20,
               ),
               isAllSelected == false
-                  ? ref
-                              .watch(noteListSingleProvider.notifier)
-                              .deletedNotesLength <
-                          1
+                  ? deletedNotes.isEmpty
                       ? const SizedBox()
                       : ElevatedButton(
                           onPressed: () {
                             ref
-                                .read(noteListSingleProvider.notifier)
+                                .read(deletedNoteProvider.notifier)
                                 .clearTrash();
                           },
                           child: CustomTextWidget(
@@ -87,7 +100,22 @@ class SingleProviderHomePage extends ConsumerWidget {
                           ),
                         )
                   : const SizedBox(),
-              isAllSelected == true ? const AllLists() : const DeletedLists(),
+              // isAllSelected == true ? const AllNotes() : const DeletedNotes(),
+              futureNotes.when(
+                data: (data) {
+                  return isAllSelected == true
+                      ? const AllNotes()
+                      : const DeletedNotes();
+                },
+                error: (error, stackTrace) {
+                  return CustomTextWidget(text: error.toString());
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
             ],
           ),
         ),

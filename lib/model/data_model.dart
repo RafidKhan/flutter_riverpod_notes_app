@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class NoteModel {
-  int? id;
+  String? id;
   String? title;
   String? subtitle;
   bool? edited;
@@ -36,7 +36,7 @@ class NoteModel {
       };
 
   NoteModel copyWith({
-    int? id,
+    String? id,
     String? title,
     String? subtitle,
     bool? edited,
