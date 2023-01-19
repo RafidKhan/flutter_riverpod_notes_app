@@ -7,6 +7,7 @@ final deletedNoteMultipleProvider =
   return DeletedNoteNotifier(ref);
 });
 
+
 class DeletedNoteNotifier extends StateNotifier<List<NoteModel>> {
   final Ref ref;
 
@@ -29,6 +30,7 @@ class DeletedNoteNotifier extends StateNotifier<List<NoteModel>> {
       for (final noteModel in state)
         if (noteModel.id != getNoteModel.id) noteModel,
     ];
+
     ref
         .read(allNoteMultipleProvider.notifier)
         .addNote(getNoteModel: getNoteModel);

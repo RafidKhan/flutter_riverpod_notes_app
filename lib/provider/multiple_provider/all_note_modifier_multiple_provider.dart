@@ -10,23 +10,16 @@ final allNoteMultipleProvider =
 class AllNoteNotifier extends StateNotifier<List<NoteModel>> {
   final Ref ref;
 
-  AllNoteNotifier(this.ref)
-      : super([
-          for (int i = 0; i < 30; i++)
-            NoteModel(
-                id: i,
-                title: "Title ${(i + 1)}",
-                subtitle: "Sub-Title ${(i + 1)}",
-                edited: false),
-        ]);
+  AllNoteNotifier(this.ref) : super([]);
 
   void moveToTrash({
     required NoteModel getNoteModel,
   }) {
     state = [
       for (final noteModel in state)
-        if (noteModel.id != getNoteModel.id) noteModel,
+        if (noteModel.id != getNoteModel.id) noteModel
     ];
+
     ref
         .read(deletedNoteMultipleProvider.notifier)
         .addNote(getNoteModel: getNoteModel);
@@ -35,10 +28,12 @@ class AllNoteNotifier extends StateNotifier<List<NoteModel>> {
   void addNote({
     required NoteModel getNoteModel,
   }) {
-    state = [
-      for (final noteModel in state)
-        noteModel,
-      getNoteModel
-    ];
+    state = [for (final noteModel in state) noteModel, getNoteModel];
+  }
+
+  void updateNote({
+    required NoteModel getNoteModel,
+  }) {
+    state = [for (final noteModel in state) noteModel];
   }
 }

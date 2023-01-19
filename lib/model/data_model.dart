@@ -7,6 +7,7 @@ class NoteModel {
   String? subtitle;
   bool? edited;
   bool? exists;
+  DateTime? dateTime;
 
   NoteModel({
     this.id,
@@ -14,6 +15,7 @@ class NoteModel {
     this.subtitle = "",
     this.edited = false,
     this.exists = true,
+    this.dateTime,
   });
 
   NoteModel.fromJson(Map<String, dynamic> json)
@@ -21,6 +23,7 @@ class NoteModel {
         title = json['title'] ?? "",
         subtitle = json['subtitle'] ?? "",
         edited = json['edited'] ?? true,
+        dateTime = json['dateTime'],
         exists = json['exists'] ?? true;
 
   Map<String, dynamic> toJson() => {
@@ -29,6 +32,7 @@ class NoteModel {
         'subtitle': subtitle,
         'edited': edited,
         'exists': exists,
+        'dateTime': dateTime,
       };
 
   NoteModel copyWith({
@@ -37,6 +41,7 @@ class NoteModel {
     String? subtitle,
     bool? edited,
     bool? exists,
+    DateTime? dateTime,
   }) {
     var noteModel = NoteModel(
       id: id ?? this.id,
@@ -44,6 +49,7 @@ class NoteModel {
       subtitle: subtitle ?? this.subtitle,
       edited: edited ?? this.edited,
       exists: exists ?? this.exists,
+      dateTime: dateTime ?? this.dateTime,
     );
     return noteModel;
   }

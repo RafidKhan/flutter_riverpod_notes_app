@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes_flutter/provider/multiple_provider/all_note_modifier_multiple_provider.dart';
 import 'package:notes_flutter/provider/multiple_provider/deleted_note_modifier_multiple_provider.dart';
 import 'package:notes_flutter/provider/multiple_provider/home_provider.dart';
 import 'package:notes_flutter/utils/custom_text_widget.dart';
@@ -9,15 +10,27 @@ import 'package:notes_flutter/view/multiple_provider_home_page/deleted_notes/del
 class MultipleProviderHomePage extends ConsumerWidget {
   const MultipleProviderHomePage({Key? key}) : super(key: key);
 
-  toggleTab(WidgetRef ref, bool value) {
-    ref.read(isAllSelectedMultipleProvider.notifier).update((state) => value);
+  toggleTab(
+    WidgetRef ref,
+    bool value,
+  ) {
+    ref.read(isAllSelectedMultipleProvider.notifier).state = value;
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isAllSelected = ref.watch(isAllSelectedMultipleProvider);
     final deletedNotes = ref.watch(deletedNoteMultipleProvider);
+    final futureNotes = ref.watch(futureNotesListsProvider);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ref.refresh(allNoteMultipleProvider);
+          ref.refresh(deletedNoteMultipleProvider);
+          ref.refresh(futureNotesListsProvider);
+        },
+        child: const Icon(Icons.replay),
+      ),
       body: SafeArea(
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -33,6 +46,8 @@ class MultipleProviderHomePage extends ConsumerWidget {
                   InkWell(
                     onTap: () {
                       toggleTab(ref, true);
+
+                      //ref.read(isAllSelectedMultipleProvider.notifier).state = value;
                     },
                     child: Container(
                       width: 100,
@@ -75,7 +90,9 @@ class MultipleProviderHomePage extends ConsumerWidget {
                       ? const SizedBox()
                       : ElevatedButton(
                           onPressed: () {
-                            ref.read(deletedNoteMultipleProvider.notifier).clearTrash();
+                            ref
+                                .read(deletedNoteMultipleProvider.notifier)
+                                .clearTrash();
                           },
                           child: CustomTextWidget(
                             text: "Delete All",
@@ -83,7 +100,23 @@ class MultipleProviderHomePage extends ConsumerWidget {
                           ),
                         )
                   : const SizedBox(),
-              isAllSelected == true ? const AllNotes() : const DeletedNotes(),
+              // isAllSelected == true ? const AllNotes() : const DeletedNotes(),
+              futureNotes.when(
+                data: (data) {
+                  return isAllSelected == true
+                      ? const AllNotes()
+                      : const DeletedNotes();
+                },
+                error: (error, stackTrace) {
+                  return CustomTextWidget(text: error.toString());
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+
+              ),
             ],
           ),
         ),

@@ -2,31 +2,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/model/data_model.dart';
 
 final noteListSingleProvider =
-StateNotifierProvider<NoteNotifier, List<NoteModel>>((ref) {
-  return NoteNotifier([
-    for (int i = 0; i < 30; i++)
-      NoteModel(
-          id: i,
-          title: "Title ${(i + 1)}",
-          subtitle: "Sub-Title ${(i + 1)}",
-          edited: false),
-  ]);
+    StateNotifierProvider<NoteNotifier, List<NoteModel>>((ref) {
+  return NoteNotifier([]);
 });
 
 final isAllSelectedSingleProvider = StateProvider<bool>((ref) => true);
 
-
-
 class NoteNotifier extends StateNotifier<List<NoteModel>> {
   NoteNotifier(super.state);
-
 
   void updateNote({required NoteModel getNoteModel}) {
     state = [
       for (final noteModel in state) noteModel,
     ];
   }
-
 
   void deleteNote({
     required NoteModel getNoteModel,

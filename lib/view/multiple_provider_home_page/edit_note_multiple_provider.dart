@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/model/data_model.dart';
+import 'package:notes_flutter/provider/multiple_provider/all_note_modifier_multiple_provider.dart';
 import 'package:notes_flutter/provider/single_provider/note_modifier.dart';
 import 'package:notes_flutter/utils/custom_text_widget.dart';
 
-class EditNote extends ConsumerWidget {
+class EditNoteMultipleProviderPage extends ConsumerWidget {
   NoteModel noteModel;
 
-  EditNote({Key? key, required this.noteModel}) : super(key: key);
+  EditNoteMultipleProviderPage({Key? key, required this.noteModel})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,7 +43,7 @@ class EditNote extends ConsumerWidget {
                       noteModel.dateTime = DateTime.now();
 
                       ref
-                          .read(noteListSingleProvider.notifier)
+                          .read(allNoteMultipleProvider.notifier)
                           .updateNote(getNoteModel: noteModel);
                       Navigator.pop(context);
                     },
