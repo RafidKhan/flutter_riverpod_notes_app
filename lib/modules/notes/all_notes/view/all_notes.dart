@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_flutter/common_components/note_tile.dart';
+import 'package:notes_flutter/models/edit_note_model.dart';
 import 'package:notes_flutter/modules/notes/all_notes/provider/all_note_modifier_provider.dart';
 import 'package:notes_flutter/modules/notes/edit_note/provider/edit_note_modifier_provider.dart';
 import 'package:notes_flutter/modules/notes/edit_note/view/edit_note.dart';
@@ -22,7 +23,15 @@ class AllNotes extends ConsumerWidget {
           return NoteTile(
             noteModel: element,
             onTap: () {
-              ref.read(editNoteProvider.notifier).state = element;
+              ref.read(editNoteProvider.notifier).setNote(
+                    getNoteModel: EditNoteModel(
+                      id: element.id,
+                      title: element.title,
+                      subtitle: element.subtitle,
+                      dateTime: element.dateTime,
+                      tileColorIndex: element.tileColorIndex,
+                    ),
+                  );
               ref.read(tileColorProvider.notifier).state =
                   element.tileColorIndex ?? 0;
               Navigator.of(context).push(

@@ -76,10 +76,7 @@ class SettingAlertDialog extends ConsumerWidget {
           ),
           onPressed: () {
             noteModel.tileColorIndex = selectedTileColor;
-            ref.read(editNoteProvider.notifier).updateNote(
-                  getNoteModel: noteModel,
-                  context: context,
-                );
+            Navigator.pop(context);
           },
         ),
       ],

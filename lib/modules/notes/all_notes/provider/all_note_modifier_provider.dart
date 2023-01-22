@@ -40,15 +40,18 @@ class AllNoteNotifier extends StateNotifier<List<NoteModel>> {
   void addNote({
     required NoteModel getNoteModel,
   }) {
-    if (getNoteModel.id != null) {
-      getNoteModel.id = getUniqueUid;
-    }
     state = [for (final noteModel in state) noteModel, getNoteModel];
   }
 
   void updateNote({
     required NoteModel getNoteModel,
   }) {
+    for (int i = 0; i < state.length; i++) {
+      if (state[i].id == getNoteModel.id) {
+        state[i] = getNoteModel;
+        break;
+      }
+    }
     state = [for (final noteModel in state) noteModel];
   }
 }

@@ -10,7 +10,8 @@ class EditNote extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final noteModel = ref.watch(editNoteProvider);
+    final editNoteModel = ref.watch(editNoteProvider);
+    final tileColors = ref.watch(tileColorsProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -18,6 +19,7 @@ class EditNote extends ConsumerWidget {
           padding: const EdgeInsets.all(10),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
+          color: tileColors[editNoteModel.tileColorIndex ?? 0],
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -36,24 +38,24 @@ class EditNote extends ConsumerWidget {
                   ),
                 ),
                 TextFormField(
+                  initialValue: editNoteModel.title,
                   maxLength: 20,
-                  initialValue: noteModel.title,
                   onChanged: (value) {
-                    noteModel.title = value;
+                    editNoteModel.title = value;
                   },
                 ),
                 TextFormField(
-                  initialValue: noteModel.subtitle,
+                  initialValue: editNoteModel.subtitle ?? " Subtitle",
                   maxLength: 200,
                   maxLines: null,
                   onChanged: (value) {
-                    noteModel.subtitle = value;
+                    editNoteModel.subtitle = value;
                   },
                 ),
                 ElevatedButton(
                     onPressed: () {
                       ref.read(editNoteProvider.notifier).updateNote(
-                            getNoteModel: noteModel,
+                            getNoteModel: editNoteModel,
                             context: context,
                           );
                     },

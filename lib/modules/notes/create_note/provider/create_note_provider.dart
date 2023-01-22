@@ -10,7 +10,7 @@ final createNoteProvider =
 class CreateNoteNotifier extends StateNotifier<NoteModel> {
   final Ref ref;
 
-  CreateNoteNotifier(this.ref) : super(NoteModel(title: ""));
+  CreateNoteNotifier(this.ref) : super(NoteModel(id: "", title: ""));
 
   void createNote({
     required NoteModel getNoteModel,
