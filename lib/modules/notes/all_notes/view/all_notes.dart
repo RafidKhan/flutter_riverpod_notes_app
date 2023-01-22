@@ -23,6 +23,8 @@ class AllNotes extends ConsumerWidget {
             noteModel: element,
             onTap: () {
               ref.read(editNoteProvider.notifier).state = element;
+              ref.read(tileColorProvider.notifier).state =
+                  element.tileColorIndex ?? 0;
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => const EditNote()));
             },

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/models/notes_model.dart';
+import 'package:notes_flutter/modules/notes/all_notes/provider/all_note_modifier_provider.dart';
 import 'package:notes_flutter/utils/common_methods.dart';
 import 'package:notes_flutter/common_components/custom_text_widget.dart';
 
-class NoteTile extends StatelessWidget {
+class NoteTile extends ConsumerWidget {
   NoteModel noteModel;
   VoidCallback onDelete;
   VoidCallback onTap;
@@ -16,12 +18,14 @@ class NoteTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tileColors = ref.watch(tileColorsProvider);
+
     return InkWell(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-        color: noteModel.edited == false ? Colors.grey[200] : Colors.grey[300],
+        color: tileColors[noteModel.tileColorIndex ?? 0],
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -30,7 +34,7 @@ class NoteTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomTextWidget(
-                    text: noteModel.title ?? "Title",
+                    text: noteModel.title,
                     maxLines: 1,
                     fontSize: 20,
                   ),

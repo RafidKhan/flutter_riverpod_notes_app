@@ -6,15 +6,15 @@ class NoteModel {
   String? id;
   String title;
   String? subtitle;
-  bool? edited;
   DateTime? dateTime;
+  int? tileColorIndex;
 
   NoteModel({
     this.id,
     required this.title,
     this.subtitle = "",
-    this.edited = false,
     this.dateTime,
+    this.tileColorIndex = 0,
   }) {
     id = getUniqueUid;
     dateTime = DateTime.now();
@@ -24,30 +24,30 @@ class NoteModel {
       : id = json['id'],
         title = json['title'] ?? "",
         subtitle = json['subtitle'] ?? "",
-        edited = json['edited'] ?? true,
+        tileColorIndex = json['tileColorIndex'] ?? 0,
         dateTime = json['dateTime'];
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'title': title,
         'subtitle': subtitle,
-        'edited': edited,
         'dateTime': dateTime,
+        'tileColorIndex': tileColorIndex,
       };
 
   NoteModel copyWith({
     String? id,
     String? title,
     String? subtitle,
-    bool? edited,
     DateTime? dateTime,
+    int? tileColorIndex,
   }) {
     var noteModel = NoteModel(
       id: id ?? this.id,
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
-      edited: edited ?? this.edited,
       dateTime: dateTime ?? this.dateTime,
+      tileColorIndex: tileColorIndex ?? this.tileColorIndex,
     );
     return noteModel;
   }

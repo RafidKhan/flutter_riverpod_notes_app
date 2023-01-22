@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/common_components/custom_text_widget.dart';
+import 'package:notes_flutter/modules/notes/all_notes/provider/all_note_modifier_provider.dart';
 import 'package:notes_flutter/modules/notes/edit_note/provider/edit_note_modifier_provider.dart';
+import 'package:notes_flutter/modules/notes/edit_note/view/setting_alert_dialog.dart';
 
 class EditNote extends ConsumerWidget {
   const EditNote({Key? key}) : super(key: key);
@@ -19,6 +21,20 @@ class EditNote extends ConsumerWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const SettingAlertDialog();
+                        },
+                      );
+                    },
+                    icon: Icon(Icons.settings),
+                  ),
+                ),
                 TextFormField(
                   maxLength: 20,
                   initialValue: noteModel.title,
@@ -36,13 +52,10 @@ class EditNote extends ConsumerWidget {
                 ),
                 ElevatedButton(
                     onPressed: () {
-                      noteModel.edited = true;
-                      noteModel.dateTime = DateTime.now();
-
-                      ref
-                          .read(editNoteProvider.notifier)
-                          .updateNote(getNoteModel: noteModel);
-                      Navigator.pop(context);
+                      ref.read(editNoteProvider.notifier).updateNote(
+                            getNoteModel: noteModel,
+                            context: context,
+                          );
                     },
                     child: CustomTextWidget(
                       text: "Save",
