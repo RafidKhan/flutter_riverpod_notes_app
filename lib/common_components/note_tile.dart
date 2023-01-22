@@ -19,13 +19,13 @@ class NoteTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tileColors = ref.watch(tileColorsProvider);
+    final tileColors = ref.watch(noteCategoryProvider);
 
     return InkWell(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-        color: tileColors[noteModel.tileColorIndex ?? 0],
+        color: tileColors[noteModel.tileColorIndex ?? 0].color,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

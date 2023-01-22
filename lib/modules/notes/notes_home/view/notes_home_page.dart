@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes_flutter/common_components/custom_text_widget.dart';
+import 'package:notes_flutter/modules/notes/all_notes/provider/all_note_modifier_provider.dart';
 import 'package:notes_flutter/modules/notes/all_notes/view/all_notes.dart';
 import 'package:notes_flutter/modules/notes/create_note/view/create_note.dart';
 import 'package:notes_flutter/modules/notes/deleted_notes/provider/deleted_note_provider.dart';
 import 'package:notes_flutter/modules/notes/deleted_notes/view/deleted_notes.dart';
 import 'package:notes_flutter/modules/notes/notes_home/provider/home_provider.dart';
+import 'package:notes_flutter/modules/notes/notes_home/view/category_filter_alert.dart';
 
 class NotesHomePage extends ConsumerWidget {
   const NotesHomePage({Key? key}) : super(key: key);
@@ -22,6 +24,8 @@ class NotesHomePage extends ConsumerWidget {
     final isAllSelected = ref.watch(isAllSelectedProvider);
     final deletedNotes = ref.watch(deletedNoteProvider);
     final futureNotes = ref.watch(futureNotesListsProvider);
+    final noteCategory = ref.watch(noteCategoryProvider);
+
     return Scaffold(
       floatingActionButton: isAllSelected == true
           ? FloatingActionButton(
@@ -47,8 +51,6 @@ class NotesHomePage extends ConsumerWidget {
                   InkWell(
                     onTap: () {
                       toggleTab(ref, true);
-
-                      //ref.read(isAllSelectedMultipleProvider.notifier).state = value;
                     },
                     child: Container(
                       width: 100,
@@ -98,7 +100,19 @@ class NotesHomePage extends ConsumerWidget {
                             color: Colors.white,
                           ),
                         )
-                  : const SizedBox(),
+                  : noteCategory.isEmpty
+                      ? const SizedBox()
+                      : IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const CategoryFilterAlertDialog();
+                              },
+                            );
+                          },
+                          icon: const Icon(Icons.filter_list_sharp),
+                        ),
               // isAllSelected == true ? const AllNotes() : const DeletedNotes(),
               futureNotes.when(
                 data: (data) {

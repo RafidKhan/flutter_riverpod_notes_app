@@ -2,30 +2,27 @@ import 'package:flutter/material.dart';
 
 @immutable
 class CategoryModel {
-  final String? categoryName;
-  final int? colorIndex;
+  final Color color;
+  final String categoryName;
 
-  CategoryModel({
-    this.categoryName = "",
-    this.colorIndex = 0,
-  });
+  CategoryModel({this.color = Colors.white, this.categoryName = "default"});
 
   CategoryModel.fromJson(Map<String, dynamic> json)
-      : categoryName = json['categoryName'] ?? "",
-        colorIndex = json['colorIndex'] ?? 0;
+      : categoryName = json['categoryName'],
+        color = json['color'];
 
   Map<String, dynamic> toJson() => {
         'categoryName': categoryName,
-        'colorIndex': colorIndex,
+        'color': color,
       };
 
   CategoryModel copyWith({
-    String? categoryName,
-    int? colorIndex,
+    Color? color,
   }) {
     var categoryModel = CategoryModel(
-        categoryName: categoryName ?? this.categoryName,
-        colorIndex: colorIndex ?? this.colorIndex);
+      color: color ?? this.color,
+      categoryName: categoryName ?? this.categoryName,
+    );
     return categoryModel;
   }
 }

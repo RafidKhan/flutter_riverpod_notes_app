@@ -5,6 +5,9 @@ import 'package:notes_flutter/utils/common_methods.dart';
 
 final isAllSelectedProvider = StateProvider<bool>((ref) => true);
 
+final tileCategoryFilterProvider = StateProvider<int>((ref) => 0);
+final categoryAllSelectedProvider = StateProvider<bool>((ref) => true);
+
 final futureNotesListsProvider = FutureProvider<List<NoteModel>>((ref) async {
   List<NoteModel> notesList = <NoteModel>[];
 

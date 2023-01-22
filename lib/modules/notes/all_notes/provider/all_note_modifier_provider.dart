@@ -1,18 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:notes_flutter/models/category_model.dart';
 import 'package:notes_flutter/models/notes_model.dart';
 import 'package:notes_flutter/modules/notes/deleted_notes/provider/deleted_note_provider.dart';
-import 'package:notes_flutter/utils/common_methods.dart';
 
-final tileColorsProvider = Provider<List<Color>>((ref) {
+final noteCategoryProvider = Provider<List<CategoryModel>>((ref) {
   return [
-    Colors.white,
-    Colors.grey[300] ?? Colors.grey,
-    Colors.amber,
-    Colors.grey,
-    Colors.greenAccent,
-    Colors.lightBlueAccent,
-    Colors.purpleAccent,
+    CategoryModel(
+      color: Colors.white,
+      categoryName: "default",
+    ),
+    CategoryModel(
+      color: Colors.grey[300] ?? Colors.grey,
+      categoryName: "music",
+    ),
+    CategoryModel(
+      color: Colors.amber,
+      categoryName: "story",
+    ),
+    CategoryModel(
+      color: Colors.grey,
+      categoryName: "grocery",
+    ),
+    CategoryModel(
+      color: Colors.greenAccent,
+      categoryName: "study",
+    ),
+    CategoryModel(
+      color: Colors.lightBlueAccent,
+      categoryName: "office",
+    ),
+    CategoryModel(
+      color: Colors.purpleAccent,
+      categoryName: "meeting",
+    ),
   ];
 });
 

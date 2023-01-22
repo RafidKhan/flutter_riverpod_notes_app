@@ -11,7 +11,7 @@ class EditNote extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final editNoteModel = ref.watch(editNoteProvider);
-    final tileColors = ref.watch(tileColorsProvider);
+    final noteCategory = ref.watch(noteCategoryProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -19,7 +19,7 @@ class EditNote extends ConsumerWidget {
           padding: const EdgeInsets.all(10),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          color: tileColors[editNoteModel.tileColorIndex ?? 0],
+          color: noteCategory[editNoteModel.tileColorIndex ?? 0].color,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -34,7 +34,7 @@ class EditNote extends ConsumerWidget {
                         },
                       );
                     },
-                    icon: Icon(Icons.settings),
+                    icon: const Icon(Icons.settings),
                   ),
                 ),
                 TextFormField(
