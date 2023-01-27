@@ -5,6 +5,7 @@ class CustomTextWidget extends StatelessWidget {
   int? maxLines;
   double? fontSize;
   Color? color;
+  VoidCallback? onTap;
 
   CustomTextWidget({
     Key? key,
@@ -12,18 +13,22 @@ class CustomTextWidget extends StatelessWidget {
     this.maxLines,
     this.fontSize,
     this.color,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Text(
-        text,
-        maxLines: maxLines,
-        overflow: TextOverflow.ellipsis,
-        style:
-            TextStyle(fontSize: fontSize ?? 15, color: color ?? Colors.black),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        child: Text(
+          text,
+          maxLines: maxLines,
+          overflow: TextOverflow.ellipsis,
+          style:
+              TextStyle(fontSize: fontSize ?? 15, color: color ?? Colors.black),
+        ),
       ),
     );
   }
