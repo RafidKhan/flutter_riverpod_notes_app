@@ -88,31 +88,44 @@ class NotesHomePage extends ConsumerWidget {
               const SizedBox(
                 height: 20,
               ),
-              isAllSelected == false
-                  ? deletedNotes.isEmpty
-                      ? const SizedBox()
-                      : ElevatedButton(
-                          onPressed: () {
-                            ref.read(deletedNoteProvider.notifier).clearTrash();
-                          },
-                          child: CustomTextWidget(
-                            text: "Delete All",
-                            color: Colors.white,
-                          ),
-                        )
-                  : noteCategory.isEmpty
-                      ? const SizedBox()
-                      : IconButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const CategoryFilterAlertDialog();
+              futureNotes.when(
+                data: (data) {
+                  return isAllSelected == false
+                      ? deletedNotes.isEmpty
+                          ? const SizedBox()
+                          : ElevatedButton(
+                              onPressed: () {
+                                ref
+                                    .read(deletedNoteProvider.notifier)
+                                    .clearTrash();
                               },
+                              child: CustomTextWidget(
+                                text: "Delete All",
+                                color: Colors.white,
+                              ),
+                            )
+                      : noteCategory.isEmpty
+                          ? const SizedBox()
+                          : IconButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return const CategoryFilterAlertDialog();
+                                  },
+                                );
+                              },
+                              icon: const Icon(Icons.filter_list_sharp),
                             );
-                          },
-                          icon: const Icon(Icons.filter_list_sharp),
-                        ),
+                },
+                error: (error, stackTrace) {
+                  return CustomTextWidget(text: error.toString());
+                },
+                loading: () {
+                  return const SizedBox();
+                },
+              ),
+
               // isAllSelected == true ? const AllNotes() : const DeletedNotes(),
               futureNotes.when(
                 data: (data) {

@@ -26,17 +26,53 @@ class AllNotes extends ConsumerWidget {
           var element = notesData[index];
 
           if (isAllSelected == true) {
-            return noteTileWidget(
-              element: element,
-              ref: ref,
-              context: context,
+            return NoteTile(
+              noteModel: element,
+              onTap: () {
+                ref.read(editNoteProvider.notifier).setNote(
+                      getNoteModel: EditNoteModel(
+                        id: element.id,
+                        title: element.title,
+                        subtitle: element.subtitle,
+                        dateTime: element.dateTime,
+                        tileColorIndex: element.tileColorIndex,
+                      ),
+                    );
+                ref.read(tileColorProvider.notifier).state =
+                    element.tileColorIndex ?? 0;
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const EditNote()));
+              },
+              onDelete: () {
+                ref
+                    .read(allNoteProvider.notifier)
+                    .moveToTrash(getNoteModel: element);
+              },
             );
           } else {
             if (selectedCategoryIndex == element.tileColorIndex) {
-              return noteTileWidget(
-                element: element,
-                ref: ref,
-                context: context,
+              return NoteTile(
+                noteModel: element,
+                onTap: () {
+                  ref.read(editNoteProvider.notifier).setNote(
+                        getNoteModel: EditNoteModel(
+                          id: element.id,
+                          title: element.title,
+                          subtitle: element.subtitle,
+                          dateTime: element.dateTime,
+                          tileColorIndex: element.tileColorIndex,
+                        ),
+                      );
+                  ref.read(tileColorProvider.notifier).state =
+                      element.tileColorIndex ?? 0;
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const EditNote()));
+                },
+                onDelete: () {
+                  ref
+                      .read(allNoteProvider.notifier)
+                      .moveToTrash(getNoteModel: element);
+                },
               );
             } else {
               return const SizedBox();
@@ -44,34 +80,6 @@ class AllNotes extends ConsumerWidget {
           }
         },
       ),
-    );
-  }
-
-  Widget noteTileWidget({
-    required NoteModel element,
-    required WidgetRef ref,
-    required BuildContext context,
-  }) {
-    return NoteTile(
-      noteModel: element,
-      onTap: () {
-        ref.read(editNoteProvider.notifier).setNote(
-              getNoteModel: EditNoteModel(
-                id: element.id,
-                title: element.title,
-                subtitle: element.subtitle,
-                dateTime: element.dateTime,
-                tileColorIndex: element.tileColorIndex,
-              ),
-            );
-        ref.read(tileColorProvider.notifier).state =
-            element.tileColorIndex ?? 0;
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const EditNote()));
-      },
-      onDelete: () {
-        ref.read(allNoteProvider.notifier).moveToTrash(getNoteModel: element);
-      },
     );
   }
 }
